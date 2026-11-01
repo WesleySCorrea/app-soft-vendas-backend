@@ -7,6 +7,8 @@ import com.app_soft_vendas_backend.application.port.out.PedidoRepositoryPort;
 import com.app_soft_vendas_backend.domain.Pedido;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class PedidoRepositoryAdapter implements PedidoRepositoryPort {
 
@@ -24,5 +26,11 @@ public class PedidoRepositoryAdapter implements PedidoRepositoryPort {
         PedidoEntity salvo = jpaRepository.save(mapper.toEntity(pedido));
 
         return mapper.toDomain(salvo);
+    }
+
+    @Override
+    public Optional<Pedido> buscarPorId(Long id) {
+
+        return jpaRepository.findById(id).map(mapper::toDomain);
     }
 }
