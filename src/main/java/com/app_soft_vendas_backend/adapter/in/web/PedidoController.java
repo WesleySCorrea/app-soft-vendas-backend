@@ -1,6 +1,6 @@
 package com.app_soft_vendas_backend.adapter.in.web;
 
-import com.app_soft_vendas_backend.adapter.in.web.dto.PedidoRequest;
+import com.app_soft_vendas_backend.adapter.in.web.dto.request.PedidoRequest;
 import com.app_soft_vendas_backend.application.port.in.PedidoUseCase;
 import com.app_soft_vendas_backend.application.port.in.dto.request.CriarPedidoCommand;
 import com.app_soft_vendas_backend.application.port.in.dto.request.ItemCommand;
