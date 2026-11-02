@@ -61,7 +61,12 @@ public class PedidoService implements PedidoUseCase {
     }
 
     @Override
-    public List<PedidoResponse> buscarPedidos() {
-        return List.of();
+    public List<PedidoResponse> buscarPedidos(String usuarioId) {
+
+        return pedidoRepositoryPort.buscarPorUsuario(usuarioId).stream()
+                .map(pedido -> new PedidoResponse(
+                                pedido.getId(), pedido.getStatus().toString(), pedido.getTotal(), pedido.getCriadoEm()
+                        )
+                ).toList();
     }
 }

@@ -7,6 +7,7 @@ import com.app_soft_vendas_backend.application.port.out.PedidoRepositoryPort;
 import com.app_soft_vendas_backend.domain.Pedido;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -32,5 +33,13 @@ public class PedidoRepositoryAdapter implements PedidoRepositoryPort {
     public Optional<Pedido> buscarPorId(Long id) {
 
         return jpaRepository.findById(id).map(mapper::toDomain);
+    }
+
+    @Override
+    public List<Pedido> buscarPorUsuario(String usurarioId) {
+
+        return jpaRepository.findByUsuarioId(usurarioId).stream()
+                .map(mapper::toDomain)
+                .toList();
     }
 }

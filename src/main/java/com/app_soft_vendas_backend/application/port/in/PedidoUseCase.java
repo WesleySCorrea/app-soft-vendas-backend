@@ -12,5 +12,5 @@ public interface PedidoUseCase {
 
     void atualizarStatus(PedidoResultadoCommand command);
 
-    List<PedidoResponse> buscarPedidos();
+    List<PedidoResponse> buscarPedidos(String usuarioId);
 }
