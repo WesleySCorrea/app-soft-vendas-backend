@@ -5,6 +5,8 @@ import com.app_soft_vendas_backend.adapter.out.persistence.mapper.PedidoPersiste
 import com.app_soft_vendas_backend.adapter.out.persistence.repository.PedidoJpaRepository;
 import com.app_soft_vendas_backend.application.port.out.PedidoRepositoryPort;
 import com.app_soft_vendas_backend.domain.Pedido;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -36,10 +38,9 @@ public class PedidoRepositoryAdapter implements PedidoRepositoryPort {
     }
 
     @Override
-    public List<Pedido> buscarPorUsuario(String usurarioId) {
+    public Page<Pedido> buscarPorUsuario(Pageable page, String usurarioId) {
 
-        return jpaRepository.findByUsuarioId(usurarioId).stream()
-                .map(mapper::toDomain)
-                .toList();
+        return jpaRepository.findByUsuarioIdOrderByCriadoEmDesc(page, usurarioId)
+                .map(mapper::toDomain);
     }
 }

@@ -9,6 +9,8 @@ import com.app_soft_vendas_backend.application.port.out.PedidoRepositoryPort;
 import com.app_soft_vendas_backend.domain.ItemPedido;
 import com.app_soft_vendas_backend.domain.Pedido;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,12 +63,12 @@ public class PedidoService implements PedidoUseCase {
     }
 
     @Override
-    public List<PedidoResponse> buscarPedidos(String usuarioId) {
+    public Page<PedidoResponse> buscarPedidos(Pageable page, String usuarioId) {
 
-        return pedidoRepositoryPort.buscarPorUsuario(usuarioId).stream()
+        return pedidoRepositoryPort.buscarPorUsuario(page, usuarioId)
                 .map(pedido -> new PedidoResponse(
                                 pedido.getId(), pedido.getStatus().toString(), pedido.getTotal(), pedido.getCriadoEm()
                         )
-                ).toList();
+                );
     }
 }

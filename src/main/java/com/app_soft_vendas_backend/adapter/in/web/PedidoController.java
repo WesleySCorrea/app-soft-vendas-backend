@@ -5,6 +5,8 @@ import com.app_soft_vendas_backend.application.port.in.PedidoUseCase;
 import com.app_soft_vendas_backend.application.port.in.dto.request.CriarPedidoCommand;
 import com.app_soft_vendas_backend.application.port.in.dto.request.ItemCommand;
 import com.app_soft_vendas_backend.application.port.in.dto.response.PedidoResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,11 +46,12 @@ public class PedidoController {
 
     @GetMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<PedidoResponse>> buscarPedidos(
+    public ResponseEntity<Page<PedidoResponse>> buscarPedidos(
+            Pageable page,
             @AuthenticationPrincipal Jwt jwt
     ) {
 
-        List<PedidoResponse> response = pedidoUseCase.buscarPedidos(jwt.getSubject());
+        Page<PedidoResponse> response = pedidoUseCase.buscarPedidos(page, jwt.getSubject());
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
